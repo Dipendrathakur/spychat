@@ -4,27 +4,55 @@ from spy_details import spy_name,spy_rating,spy_age
 print "Hello buddy"
 print "Let's get started"
 
+STATUS_MESSAGE = ['galti badi galti engineering','cant talk whatsapp only','happy sunday']
+
+
+def add_status(c_status):
+    if c_status != None:
+        print"Your current status is " + c_status
+    else:
+        print "you dont have any status currently"
+    existing_status = raw_input("You want to select from old status? Y/N ")
+    if existing_status.upper()=="N":
+        new_status= raw_input("Enter your status: ")
+        if len(new_status)>0:
+            STATUS_MESSAGE.append(new_status)
+
+
+    elif existing_status.upper()=="Y":
+        serial_no = 1
+        for old_status in STATUS_MESSAGE:
+            print str(serial_no) + ".  " +  old_status
+            serial_no = serial_no + 1
+        user_choice = input("enter your choice: ")
+        new_status= STATUS_MESSAGE[user_choice-1]
+    update_status= new_status
+    return update_status
+
+
 #defining function start_chat
 def start_chat(spy_name, spy_age, spy_rating):
     print "Please select an option " + spy_name
+    current_status = None
     show_menu= True
     while show_menu:
-        choice = input("What do you want to do?  \n 1) Add a status. \n 2) Add a friend. \n 0) Exit. \n ")
-    if choice ==1:
-        print"Will add a status"
-    elif choice ==2:
-        print"Will add a friend"
-    elif choice ==0:
-        show_menu= False
-    else:
-        print"Invalid input"
+        choice = input("What do you want to do?  \n 1. Add a status. \n 2. Add a friend. \n 3. send a message ")
+        if choice ==1:
+            current_status = add_status(current_status)
+            print" Updated status is " + current_status
+        elif choice ==2:
+            print"Will add a friend"
+        elif choice ==0:
+            show_menu= False
+        else:
+            print"Invalid input"
 
-spy_name
 spy_exist = raw_input("Are you a new user? Y/N? ")
 
 if spy_exist.upper()=="N":
     print "Welcome back " + spy_name + " age: "+ str(spy_age) + " having rating "+ str(spy_rating)
     start_chat(spy_name,spy_age,spy_rating)
+
 
 
 elif spy_exist.upper()=="Y":
